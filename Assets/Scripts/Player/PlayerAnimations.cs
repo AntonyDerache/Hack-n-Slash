@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
+    
 
     public void Run(bool state) {
 
@@ -15,6 +16,8 @@ public class PlayerAnimations : MonoBehaviour
     }
 
     public void Hit() { }
+
     public void Death() { }
+ 
     public void Roll() { }
 }

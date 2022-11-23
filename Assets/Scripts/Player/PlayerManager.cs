@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +6,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerAnimations _playerAnimations;
     private PlayerMovements _playerMovements;
 
-    [SerializeField] private PlayerWeaponController _weaponController;
+    [SerializeField] private PlayerWeaponManager _weaponController;
     private SpriteRenderer _sprite;
 
     private PlayerInput _playersInput;
@@ -41,15 +39,11 @@ public class PlayerManager : MonoBehaviour
             _playerAnimations.Roll();
             // Roll();
         }
-        if (_fireAction.triggered) {
+        if (_weaponController && _fireAction.triggered) {
             // _playerAnimations.Attack();
             _weaponController.Fire();
         }
         CheckRotation();
-    }
-
-    private void FixedUpdate()
-    {
         SetMovements();
     }
 
@@ -57,7 +51,7 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 direction = (Vector3)Mouse.current.position.ReadValue() - Camera.main.WorldToScreenPoint(transform.position);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _weaponController.RotateWeapon(angle);
+        if (_weaponController) _weaponController.RotateWeapon(angle);
         if (angle > 120 || angle < -70) {
             _sprite.flipX = true;
         } else {

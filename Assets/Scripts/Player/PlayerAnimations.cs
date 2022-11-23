@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -28,7 +26,8 @@ public class PlayerAnimations : MonoBehaviour
         _anim.SetBool(_isRunningHash, state);
     }
 
-    public void Attack(bool state) {
+    public void Attack(bool state)
+    {
 
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovements : MonoBehaviour
 {
@@ -28,18 +29,11 @@ public class PlayerMovements : MonoBehaviour
     {
         if (moveVector.x != 0 || moveVector.y != 0) {
             _cc.Move(_smoothInputVector * Time.fixedDeltaTime * speed);
-            FlipSprite(moveVector.x);
+            _playerAnimations.Run(true);
         } else {
+            _playerAnimations.Run(false);
             _cc.Move(Vector2.zero);
         }
-    }
-
-    public void FlipSprite(float horizontal)
-    {
-        if (horizontal < 0f)
-            transform.localScale = new Vector2(1f, 1f);
-        else if (horizontal > 0f)
-            transform.localScale = new Vector2(-1f, 1f);
     }
 
     public void SetVelocity(Vector2 velocity)

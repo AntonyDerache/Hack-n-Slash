@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         }
         if (_weaponController && _fireAction.triggered) {
             // _playerAnimations.Attack();
-            _weaponController.Fire();
+            _weaponController.Fire((Vector3)Mouse.current.position.ReadValue());
         }
         CheckRotation();
         SetMovements();

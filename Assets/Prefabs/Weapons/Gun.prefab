@@ -190,6 +190,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6819442942611111904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2195368693924497520}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2195368693924497520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6819442942611111904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6, y: -2.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4554652896120140090}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6924185172297895693
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +251,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1871696911914924445}
+  - {fileID: 2195368693924497520}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -235,9 +267,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276e22dc57e374383b97560bfb6b08cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1
+  id: 1
   _fireRate: 1
   _reloadTime: 1
+  _bulletSpeed: 8
   _ammos: 1
   _muzzle: {fileID: 21300000, guid: 472ee0353ca2b4a42aba936b0c12415c, type: 3}
-  _ball: {fileID: 21300000, guid: 8fae81571044f462ebeb54660846af9c, type: 3}
+  _bullet: {fileID: 2346327718217419046, guid: fe124d4e4c7d940ebb6f2acc965063fe, type: 3}
+  _firePoints:
+  - {fileID: 2195368693924497520}
+  _centerPoint: {fileID: 0}

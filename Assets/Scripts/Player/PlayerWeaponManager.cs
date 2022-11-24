@@ -11,13 +11,12 @@ public enum WeaponsEnum
 public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField] private WeaponsEnum _currentWeapon;
-    private List<IWeaponController> _weapons = new List<IWeaponController>();
-    private IWeaponController _currentWeaponController = null;
+    private List<AWeaponController> _weapons = new List<AWeaponController>();
+    private AWeaponController _currentWeaponController = null;
 
     private void Awake() {
         for (int i = 0; i < transform.childCount; i++) {
-            IWeaponController ctrl = transform.GetChild(i).GetComponent<IWeaponController>();
-
+            AWeaponController ctrl = transform.GetChild(i).GetComponent<AWeaponController>();
             if (ctrl != null) {
                 if (ctrl.id == _currentWeapon) {
                     _currentWeaponController = ctrl;
@@ -38,10 +37,10 @@ public class PlayerWeaponManager : MonoBehaviour
         }
     }
 
-    public void Fire()
+    public void Fire(Vector3 mousePos)
     {
         if (_currentWeaponController != null) {
-            _currentWeaponController.Fire();
+            _currentWeaponController.Fire(mousePos);
         }
     }
 }

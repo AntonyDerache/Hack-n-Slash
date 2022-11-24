@@ -598,6 +598,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1762236650522667337, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7033082421273944789, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
+      propertyPath: _currentWeapon
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7033082422881259332, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -646,9 +654,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7033082422881259335, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7033082422881259389, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_Height
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7033082422881259389, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_Radius
@@ -656,7 +668,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7033082422881259389, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_Center.y
-      value: -3.7
+      value: -4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893212878946641637, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
+      propertyPath: _bulletSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f3b148188dac487eabf3df76e214148, type: 3}

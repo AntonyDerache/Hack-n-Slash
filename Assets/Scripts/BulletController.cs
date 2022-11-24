@@ -17,6 +17,7 @@ public class BulletController : MonoBehaviour
 
     public void Active(Vector2 direction, float speed)
     {
+        Debug.Log(direction);
         _direction = direction;
         _speed = speed;
         if (_rb) {

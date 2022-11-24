@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum WeaponsEnum
 {
@@ -24,16 +25,6 @@ public class PlayerWeaponManager : MonoBehaviour
                 }
                 _weapons.Add(ctrl);
             }
-        }
-    }
-
-    public void RotateWeapon(float angle)
-    {
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        if (angle > 120 || angle < -70){
-            transform.localScale = new Vector2(1f, -1f);
-        } else {
-            transform.localScale = new Vector2(1f, 1f);
         }
     }
 

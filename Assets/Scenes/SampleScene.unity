@@ -602,6 +602,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.42
       objectReference: {fileID: 0}
+    - target: {fileID: 1762236650522667337, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2970011194611514600, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -628,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7033082421273944789, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: _currentWeapon
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7033082422881259332, guid: 8f3b148188dac487eabf3df76e214148, type: 3}
       propertyPath: m_RootOrder

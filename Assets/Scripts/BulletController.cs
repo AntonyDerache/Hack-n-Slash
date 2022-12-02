@@ -4,8 +4,6 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private Vector2 _direction = new Vector2(0, 0) ;
-    private float _speed = 0f;
 
     private void Awake()
     {
@@ -13,12 +11,12 @@ public class BulletController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Active(Vector2 direction, float speed)
+    public void Active(float angle, float speed)
     {
-        _direction = direction;
-        _speed = speed;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         if (_rb) {
-            _rb.velocity = direction * (_speed * 350) * Time.fixedDeltaTime;
+            _rb.velocity = transform.right * (speed * 350) * Time.fixedDeltaTime;
         }
     }
 }

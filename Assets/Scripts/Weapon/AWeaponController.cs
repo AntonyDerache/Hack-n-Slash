@@ -10,11 +10,13 @@ public abstract class AWeaponController : MonoBehaviour
     [SerializeField] private float _fireRate;
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _bulletSpeed;
-    [SerializeField] private Sprite _muzzle;
+    [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _bullet;
-    [SerializeField] private List<Transform> _firePoints = new List<Transform>();
+    [SerializeField] private Transform _firePoints;
     [SerializeField] private Transform _centerPoint;
 
+    private float _rotationAngle;
+    private bool _cursorOver = false;
     private bool _canFire = true;
     private Coroutine _resetFireRateCoroutine = null;
     private Coroutine _reloadCoroutine = null;
@@ -33,10 +35,37 @@ public abstract class AWeaponController : MonoBehaviour
 
     private void Update()
     {
+        // CheckIfMouseHover();
+        HandleRotation();
+    }
+
+    // private void CheckIfMouseHover()
+    // {
+    //     Vector3 ray = Camera.main.ScreenToWorldPoint((Vector3)Mouse.current.position.ReadValue());
+    //     RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+    //     if (hit.collider != null) {
+    //         if (hit.collider.transform.name == name) {
+    //             if (_cursorOver == false) {
+    //                 _canFire = false;
+    //                 GameEventsManager.IsCursorOverWeapon.Invoke(true);
+    //             }
+    //             _cursorOver = true;
+    //         }
+    //     } else {
+    //         if (_cursorOver) {
+    //             _canFire = true;
+    //             GameEventsManager.IsCursorOverWeapon.Invoke(false);
+    //         }
+    //         _cursorOver = false;
+    //     }
+    // }
+
+    private void HandleRotation()
+    {
         Vector3 direction = (Vector3)Mouse.current.position.ReadValue() - Camera.main.WorldToScreenPoint(transform.position);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        if (angle > 40 && angle < 140) {
+        _rotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(_rotationAngle, Vector3.forward);
+        if (_rotationAngle > 40 && _rotationAngle < 140) {
             _sprite.sortingOrder = 0;
             for (int i = 0; i < _handsSprites.Count; i++) {
                 _handsSprites[i].sortingOrder = 1;
@@ -61,17 +90,27 @@ public abstract class AWeaponController : MonoBehaviour
         GameEventsManager.playerFired?.Invoke();
         _resetFireRateCoroutine = StartCoroutine(ResetFireRate());
         _loadedAmmos -= 1;
-        for (int i = 0; i < _firePoints.Count; i++) {
-            GameObject bullet = Instantiate(_bullet, _firePoints[i].position, Quaternion.identity);
-            if (bullet) {
-                // TO FIX SPEED OF BULLET
-                if (_centerPoint != null) {
-                    bullet.GetComponent<BulletController>()?.Active((_firePoints[i].position - _centerPoint.position).normalized, _bulletSpeed);
-                } else {
-                    bullet.GetComponent<BulletController>()?.Active((Camera.main.ScreenToWorldPoint(mousePos) - _firePoints[i].position).normalized, _bulletSpeed);
-                }
-            }
+        StartCoroutine(ShowMuzzle());
+        if (id == WeaponsEnum.Shotgun) {
+            GameObject bullet = Instantiate(_bullet, _firePoints.position, Quaternion.identity);
+            GameObject bullet2 = Instantiate(_bullet, _firePoints.position, Quaternion.identity);
+            GameObject bullet3 = Instantiate(_bullet, _firePoints.position, Quaternion.identity);
+
+            bullet.GetComponent<BulletController>()?.Active(_rotationAngle + 10, _bulletSpeed);
+            bullet2.GetComponent<BulletController>()?.Active(_rotationAngle, _bulletSpeed);
+            bullet3.GetComponent<BulletController>()?.Active(_rotationAngle - 10, _bulletSpeed);
+        } else {
+            GameObject bullet = Instantiate(_bullet, _firePoints.position, Quaternion.identity);
+            bullet.GetComponent<BulletController>()?.Active(_rotationAngle, _bulletSpeed);
         }
+    }
+
+    private IEnumerator ShowMuzzle()
+    {
+        _muzzle.SetActive(true);
+        yield return new WaitForSeconds(.05f);
+        _muzzle.SetActive(false);
+
     }
 
     private IEnumerator ResetFireRate()

@@ -21,7 +21,7 @@ public class AmmosPooling : MonoBehaviour
     private void Start() {
         GameEventsManager.playerFired?.AddListener(hasFired);
         GameEventsManager.playerReload?.AddListener(ReloadBullets);
-        GameEventsManager.playerSwitchedWeapon.AddListener(SwitchWeapon);
+        GameEventsManager.playerSwitchedWeapon?.AddListener(SwitchWeapon);
     }
 
     private void SwitchWeapon(float loadedBullets, int maxAmmos)

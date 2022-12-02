@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
+        Vector2 cursorHotspot = new Vector2(cursor.width / 2, cursor.height / 2);
+        Cursor.SetCursor(cursor, cursorHotspot, CursorMode.ForceSoftware);
         _player = GameObject.Find("Player");
     }
 
@@ -26,5 +27,4 @@ public class GameManager : MonoBehaviour
         //     // TimeCounter timeCounterScript = GameObject.Find("CounterPanel")?.GetComponent<TimeCounter>();
         // };
     }
-
 }

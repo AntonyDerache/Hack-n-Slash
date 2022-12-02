@@ -16,7 +16,7 @@ public abstract class AWeaponController : MonoBehaviour
     [SerializeField] private Transform _centerPoint;
 
     private float _rotationAngle;
-    private bool _cursorOver = false;
+    // private bool _cursorOver = false;
     private bool _canFire = true;
     private Coroutine _resetFireRateCoroutine = null;
     private Coroutine _reloadCoroutine = null;

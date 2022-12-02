@@ -81,7 +81,8 @@ public class PlayerManager : MonoBehaviour
     private void CheckRolling()
     {
         if (_rollAction.triggered) {
-            _playerAnimations.Roll();
+            // _playerAnimations.Roll();
+            _playerAnimations.Attack();
             // Roll();
         }
     }

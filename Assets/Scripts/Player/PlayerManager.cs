@@ -35,15 +35,20 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         _moveVector = _moveAction.ReadValue<Vector2>();
-        if (_rollAction.triggered) {
+        if (_rollAction.triggered)
+        {
             _playerAnimations.Roll();
             // Roll();
         }
-        if (_weaponController && _fireAction.triggered) {
+        if (_weaponController && _fireAction.IsPressed()) {
             // _playerAnimations.Attack();
             _weaponController.Fire((Vector3)Mouse.current.position.ReadValue());
         }
         CheckRotation();
+    }
+
+    private void FixedUpdate()
+    {
         SetMovements();
     }
 
@@ -51,16 +56,22 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 direction = (Vector3)Mouse.current.position.ReadValue() - Camera.main.WorldToScreenPoint(transform.position);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        _weaponController.RotateWeaponScale(angle);
         if (angle > 120 || angle < -70) {
-            _sprite.flipX = true;
+            transform.localScale = new Vector3(-1, 1, 1);
         } else {
-            _sprite.flipX = false;
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
     private void SetMovements()
     {
-        _playerMovements.SetSmoothInput(_moveVector);
+        // _playerMovements.SetSmoothInput(_moveVector);
         _playerMovements.Move(_moveVector);
+    }
+
+    public WeaponsEnum GetCurrentWeapon()
+    {
+        return _weaponController.currentWeapon;
     }
 }

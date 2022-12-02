@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
@@ -17,7 +15,6 @@ public class BulletController : MonoBehaviour
 
     public void Active(Vector2 direction, float speed)
     {
-        Debug.Log(direction);
         _direction = direction;
         _speed = speed;
         if (_rb) {

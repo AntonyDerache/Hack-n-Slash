@@ -45,4 +45,20 @@ public class PlayerWeaponManager : MonoBehaviour
             _currentWeaponController.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
+    public void SwitchWeapon(int index)
+    {
+        if (_weapons[index] == null)
+            return;
+        _currentWeaponController.ShowWeapon(false);
+        _currentWeaponController = _weapons[index];
+        _currentWeaponController.ShowWeapon(true);
+        currentWeapon = _currentWeaponController.id;
+        GameEventsManager.playerSwitchedWeapon?.Invoke(_currentWeaponController._loadedAmmos, _currentWeaponController._ammos);
+    }
+
+    public void ReloadWeapon()
+    {
+        StartCoroutine(_currentWeaponController.ReloadWeapon());
+    }
 }

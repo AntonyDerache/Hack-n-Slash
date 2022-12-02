@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87b3bf85faa54022b8b436ed47f6bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponController: {fileID: 7033082421273944789}
+  _playerWeaponController: {fileID: 7033082421273944789}
 --- !u!114 &7033082422881259334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e3e4f92c75d4e93881a25b9c9a0550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1500
+  speed: 1750
   _smoothInputSpeed: 0.1
 --- !u!114 &7033082422881259386
 MonoBehaviour:
@@ -363,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3880054933082117021, guid: dd207885c2dcf482abda3070dd9399da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.35
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: 5334084515760129415, guid: dd207885c2dcf482abda3070dd9399da, type: 3}
       propertyPath: m_LocalPosition.x

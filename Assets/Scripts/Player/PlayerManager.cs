@@ -6,13 +6,17 @@ public class PlayerManager : MonoBehaviour
     private PlayerAnimations _playerAnimations;
     private PlayerMovements _playerMovements;
 
-    [SerializeField] private PlayerWeaponManager _weaponController;
+    [SerializeField] private PlayerWeaponManager _playerWeaponController;
     private SpriteRenderer _sprite;
 
     private PlayerInput _playersInput;
     private InputAction _moveAction;
     private InputAction _rollAction;
     private InputAction _fireAction;
+    private InputAction _switchFirstWeapon;
+    private InputAction _switchSecondWeapon;
+    private InputAction _switchThirdWeapon;
+    private InputAction _reloadWeapon;
 
     private Vector2 _moveVector;
 
@@ -30,21 +34,20 @@ public class PlayerManager : MonoBehaviour
         _moveAction = _playersInput.actions["Move"];
         _rollAction = _playersInput.actions["Roll"];
         _fireAction = _playersInput.actions["Fire"];
+        _switchFirstWeapon = _playersInput.actions["SwitchFirstWeapon"];
+        _switchSecondWeapon = _playersInput.actions["SwitchSecondWeapon"];
+        _switchThirdWeapon = _playersInput.actions["SwitchThirdWeapon"];
+        _reloadWeapon = _playersInput.actions["Reload"];
     }
 
     private void Update()
     {
         _moveVector = _moveAction.ReadValue<Vector2>();
-        if (_rollAction.triggered)
-        {
-            _playerAnimations.Roll();
-            // Roll();
-        }
-        if (_weaponController && _fireAction.IsPressed()) {
-            // _playerAnimations.Attack();
-            _weaponController.Fire((Vector3)Mouse.current.position.ReadValue());
-        }
+        CheckFiring();
         CheckRotation();
+        CheckSwitchWeapon();
+        CheckRolling();
+        CheckReload();
     }
 
     private void FixedUpdate()
@@ -56,7 +59,7 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 direction = (Vector3)Mouse.current.position.ReadValue() - Camera.main.WorldToScreenPoint(transform.position);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _weaponController.RotateWeaponScale(angle);
+        _playerWeaponController.RotateWeaponScale(angle);
         if (angle > 120 || angle < -70) {
             transform.localScale = new Vector3(-1, 1, 1);
         } else {
@@ -64,14 +67,51 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void CheckSwitchWeapon()
+    {
+        if (_switchFirstWeapon.triggered) {
+            _playerWeaponController?.SwitchWeapon(0);
+        } else if (_switchSecondWeapon.triggered) {
+            _playerWeaponController?.SwitchWeapon(1);
+        } else if (_switchThirdWeapon.triggered) {
+            _playerWeaponController?.SwitchWeapon(2);
+        }
+    }
+
+    private void CheckRolling()
+    {
+        if (_rollAction.triggered) {
+            _playerAnimations.Roll();
+            // Roll();
+        }
+    }
+
+    private void CheckFiring()
+    {
+        if (_playerWeaponController && _fireAction.IsPressed()) {
+            // _playerAnimations.Attack();
+            _playerWeaponController.Fire((Vector3)Mouse.current.position.ReadValue());
+        }
+    }
+
+    private void CheckReload()
+    {
+
+        if (_playerWeaponController && _reloadWeapon.triggered) {
+            // _playerAnimations.Attack();
+            _playerWeaponController.ReloadWeapon();
+        }
+    }
+
     private void SetMovements()
     {
-        // _playerMovements.SetSmoothInput(_moveVector);
+        _playerMovements.SetSmoothInput(_moveVector);
         _playerMovements.Move(_moveVector);
     }
 
+
     public WeaponsEnum GetCurrentWeapon()
     {
-        return _weaponController.currentWeapon;
+        return _playerWeaponController.currentWeapon;
     }
 }

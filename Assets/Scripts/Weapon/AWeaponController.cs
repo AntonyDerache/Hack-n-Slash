@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public abstract class AWeaponController : MonoBehaviour
 {
     public WeaponsEnum id;
+    public int _ammos;
     [SerializeField] private float _fireRate;
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _bulletSpeed;
-    [SerializeField] private int _ammos;
     [SerializeField] private Sprite _muzzle;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private List<Transform> _firePoints = new List<Transform>();
@@ -18,9 +18,9 @@ public abstract class AWeaponController : MonoBehaviour
     private bool _canFire = true;
     private Coroutine _resetFireRateCoroutine = null;
     private Coroutine _reloadCoroutine = null;
-    private float _loadedAmmos = 0;
     private SpriteRenderer _sprite;
     private List<SpriteRenderer> _handsSprites = new List<SpriteRenderer>();
+    [HideInInspector] public float _loadedAmmos = 0;
 
     private void Awake()
     {
@@ -29,49 +29,6 @@ public abstract class AWeaponController : MonoBehaviour
         for (int i = 0; i < _sprite.gameObject.transform.childCount; i++) {
             _handsSprites.Add(_sprite.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>());
         }
-    }
-
-    virtual public void Fire(Vector3 mousePos)
-    {
-        if (!_canFire)
-            return;
-        _canFire = false;
-        if (_loadedAmmos <= 0) {
-            _reloadCoroutine = StartCoroutine(ReloadWeapon());
-            return;
-        }
-        GameEventsManager.playerFired?.Invoke();
-        _resetFireRateCoroutine = StartCoroutine(ResetFireRate());
-        _loadedAmmos -= 1;
-        for (int i = 0; i < _firePoints.Count; i++) {
-            GameObject bullet = Instantiate(_bullet, _firePoints[i].position, Quaternion.identity);
-            if (bullet) {
-                if (_centerPoint != null) {
-                    bullet.GetComponent<BulletController>()?.Active((_firePoints[i].position - _centerPoint.position).normalized, _bulletSpeed);
-                } else {
-                    bullet.GetComponent<BulletController>()?.Active((Camera.main.ScreenToWorldPoint(mousePos) - _firePoints[i].position).normalized, _bulletSpeed);
-                }
-            }
-        }
-    }
-
-    private IEnumerator ResetFireRate()
-    {
-        yield return new WaitForSeconds(_fireRate);
-        _canFire = true;
-    }
-
-    private IEnumerator ReloadWeapon()
-    {
-        yield return new WaitForSeconds(_reloadTime);
-        GameEventsManager.playerReload?.Invoke();
-        _loadedAmmos = _ammos;
-        _canFire = true;
-    }
-
-    virtual public void ShowWeapon(bool state)
-    {
-        gameObject.SetActive(state);
     }
 
     private void Update()
@@ -90,5 +47,50 @@ public abstract class AWeaponController : MonoBehaviour
                 _handsSprites[i].sortingOrder = 4;
             }
         }
+    }
+
+    virtual public void Fire(Vector3 mousePos)
+    {
+        if (!_canFire)
+            return;
+        if (_loadedAmmos <= 0) {
+            _reloadCoroutine = StartCoroutine(ReloadWeapon());
+            return;
+        }
+        _canFire = false;
+        GameEventsManager.playerFired?.Invoke();
+        _resetFireRateCoroutine = StartCoroutine(ResetFireRate());
+        _loadedAmmos -= 1;
+        for (int i = 0; i < _firePoints.Count; i++) {
+            GameObject bullet = Instantiate(_bullet, _firePoints[i].position, Quaternion.identity);
+            if (bullet) {
+                // TO FIX SPEED OF BULLET
+                if (_centerPoint != null) {
+                    bullet.GetComponent<BulletController>()?.Active((_firePoints[i].position - _centerPoint.position).normalized, _bulletSpeed);
+                } else {
+                    bullet.GetComponent<BulletController>()?.Active((Camera.main.ScreenToWorldPoint(mousePos) - _firePoints[i].position).normalized, _bulletSpeed);
+                }
+            }
+        }
+    }
+
+    private IEnumerator ResetFireRate()
+    {
+        yield return new WaitForSeconds(_fireRate);
+        _canFire = true;
+    }
+
+    public IEnumerator ReloadWeapon()
+    {
+        _canFire = false;
+        yield return new WaitForSeconds(_reloadTime);
+        GameEventsManager.playerReload?.Invoke();
+        _loadedAmmos = _ammos;
+        _canFire = true;
+    }
+
+    virtual public void ShowWeapon(bool state)
+    {
+        gameObject.SetActive(state);
     }
 }

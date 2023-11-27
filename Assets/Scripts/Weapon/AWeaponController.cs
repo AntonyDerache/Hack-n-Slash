@@ -116,20 +116,25 @@ public abstract class AWeaponController : MonoBehaviour
     private IEnumerator ResetFireRate()
     {
         yield return new WaitForSeconds(_fireRate);
-        _canFire = true;
+        SetCanFire(true);
     }
 
     public IEnumerator ReloadWeapon()
     {
-        _canFire = false;
+        SetCanFire(false);
         yield return new WaitForSeconds(_reloadTime);
         GameEventsManager.playerReload?.Invoke();
         _loadedAmmos = _ammos;
-        _canFire = true;
+        SetCanFire(true);
     }
 
     virtual public void ShowWeapon(bool state)
     {
         gameObject.SetActive(state);
+    }
+
+    public void SetCanFire(bool state)
+    {
+        _canFire = state;
     }
 }

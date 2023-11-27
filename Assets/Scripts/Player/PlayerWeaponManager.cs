@@ -53,6 +53,7 @@ public class PlayerWeaponManager : MonoBehaviour
         _currentWeaponController.ShowWeapon(false);
         _currentWeaponController = _weapons[index];
         _currentWeaponController.ShowWeapon(true);
+        _currentWeaponController.SetCanFire(true);
         currentWeapon = _currentWeaponController.id;
         GameEventsManager.playerSwitchedWeapon?.Invoke(_currentWeaponController._loadedAmmos, _currentWeaponController._ammos);
     }

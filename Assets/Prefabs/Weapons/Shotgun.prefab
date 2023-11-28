@@ -84,6 +84,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1062799309515391811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3255183629935365628}
+  - component: {fileID: 1347504396200325909}
+  m_Layer: 0
+  m_Name: BulletsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3255183629935365628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062799309515391811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1150391319174690615}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347504396200325909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062799309515391811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4278ff615d5444039cb5ffe543174de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quantity: 24
+  _objectPrefab: {fileID: 2346327718217419046, guid: fe124d4e4c7d940ebb6f2acc965063fe, type: 3}
+  _spawnPoints: {fileID: 1660982552119374313}
 --- !u!1 &2971241120770179055
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +387,7 @@ Transform:
   - {fileID: 2971241120770178960}
   - {fileID: 1660982552119374313}
   - {fileID: 518193009360138926}
+  - {fileID: 3255183629935365628}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -364,6 +412,7 @@ MonoBehaviour:
   _bullet: {fileID: 2346327718217419046, guid: fe124d4e4c7d940ebb6f2acc965063fe, type: 3}
   _firePoints: {fileID: 1660982552119374313}
   _centerPoint: {fileID: 0}
+  _bulletsPool: {fileID: 1347504396200325909}
   _loadedAmmos: 0
 --- !u!70 &7960697085324182608
 CapsuleCollider2D:

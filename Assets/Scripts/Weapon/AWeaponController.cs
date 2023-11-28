@@ -14,6 +14,7 @@ public abstract class AWeaponController : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _firePoints;
     [SerializeField] private Transform _centerPoint;
+    [SerializeField] private float _bulletDamage;
 
     [SerializeField] private ObjectPooling _bulletsPool;
     private List<GameObject> _activeBullet = new List<GameObject>();
@@ -103,15 +104,15 @@ public abstract class AWeaponController : MonoBehaviour
         GameObject bullet2 = this._bulletsPool.Get();
         GameObject bullet3 = this._bulletsPool.Get();
 
-        bullet.GetComponent<BulletController>().Active(this._rotationAngle + 10, this._bulletSpeed, this._bulletsPool);
-        bullet2.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletsPool);
-        bullet3.GetComponent<BulletController>().Active(this._rotationAngle - 10, this._bulletSpeed, this._bulletsPool);
+        bullet.GetComponent<BulletController>().Active(this._rotationAngle + 10, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
+        bullet2.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
+        bullet3.GetComponent<BulletController>().Active(this._rotationAngle - 10, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
     }
 
     private void InitWeaponBullet()
     {
         GameObject bullet = this._bulletsPool.Get();
-        bullet.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletsPool);
+        bullet.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
     }
 
     virtual public void Fire(Vector3 mousePos)

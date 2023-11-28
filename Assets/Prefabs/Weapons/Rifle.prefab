@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5836743470025204288}
   m_Layer: 0
   m_Name: Rifle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +57,7 @@ MonoBehaviour:
   _bullet: {fileID: 2346327718217419046, guid: fe124d4e4c7d940ebb6f2acc965063fe, type: 3}
   _firePoints: {fileID: 8217357735344187567}
   _centerPoint: {fileID: 0}
+  _bulletDamage: 10
   _bulletsPool: {fileID: 8182199541200285306}
   _loadedAmmos: 0
 --- !u!70 &5836743470025204288

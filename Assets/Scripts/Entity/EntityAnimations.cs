@@ -4,14 +4,14 @@ public class EntityAnimations : MonoBehaviour
 {
     [SerializeField] protected Animator _anim;
     protected int _isRunningHash;
-    protected int _dieHash;
+    protected int _deathHash;
     protected int _hitHash;
     protected int _attackHash;
 
     virtual protected void Awake() {
         if (_anim) {
             _isRunningHash = Animator.StringToHash("Run");
-            _dieHash = Animator.StringToHash("Death");
+            _deathHash = Animator.StringToHash("Death");
             _hitHash = Animator.StringToHash("Hit");
             _attackHash = Animator.StringToHash("Attack");
         }
@@ -19,33 +19,33 @@ public class EntityAnimations : MonoBehaviour
 
     public void Run(bool state)
     {
-        if (IsParameterExists(_isRunningHash)){
+        if (IsHashValid(_isRunningHash)){
             _anim.SetBool(_isRunningHash, state);
         }
     }
 
     public void Attack()
     {
-        if (IsParameterExists(_attackHash)) {
+        if (IsHashValid(_attackHash)) {
            _anim.SetTrigger(_attackHash);
         }
     }
 
     public void Hit()
     {
-        if (IsParameterExists(_hitHash)) {
+        if (IsHashValid(_hitHash)) {
             _anim.SetTrigger(_hitHash);
         }
     }
 
     public void Death()
     {
-        if (IsParameterExists(_hitHash)) {
-            _anim.SetTrigger(_hitHash);
+        if (IsHashValid(_deathHash)) {
+            _anim.SetTrigger(_deathHash);
         }
     }
 
-    protected bool IsParameterExists(int hash)
+    protected bool IsHashValid(int hash)
     {
         bool exists = false;
         foreach (var param in _anim.parameters) {

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8386276103775349447}
   - component: {fileID: 4623938533629987522}
   m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
+  m_Name: Shadow
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7033082421289233694}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,9 +204,9 @@ GameObject:
   - component: {fileID: 7033082422881259335}
   - component: {fileID: 7033082422881259386}
   - component: {fileID: 20300318480077587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

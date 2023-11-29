@@ -13,7 +13,7 @@ public class PlayerAnimations : EntityAnimations
 
     public void Roll()
     {
-        if (IsParameterExists(_rollHash)) {
+        if (this.IsHashValid(_rollHash)) {
             _anim.SetTrigger(_rollHash);
         }
     }

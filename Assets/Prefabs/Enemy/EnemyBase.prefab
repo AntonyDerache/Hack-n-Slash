@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b71fe4af539d4496866b82d66bcf47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkingMaterial: {fileID: 2100000, guid: ad133d8ad54bf46579d300ffae327482, type: 2}
 --- !u!114 &3972988638451050499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3877ce0626dd41cb8a0aefea9789daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkingMaterial: {fileID: 2100000, guid: ad133d8ad54bf46579d300ffae327482, type: 2}
   _health: 40
 --- !u!70 &7326779917695614643
 CapsuleCollider2D:

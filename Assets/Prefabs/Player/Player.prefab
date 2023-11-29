@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87b3bf85faa54022b8b436ed47f6bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkingMaterial: {fileID: 2100000, guid: ad133d8ad54bf46579d300ffae327482, type: 2}
   _playerWeaponController: {fileID: 7033082421273944789}
 --- !u!114 &7033082422881259334
 MonoBehaviour:

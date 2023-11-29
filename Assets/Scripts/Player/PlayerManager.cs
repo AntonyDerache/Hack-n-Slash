@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : EntityManager
 {
-    private PlayerAnimations _playerAnimations;
     private PlayerMovements _playerMovements;
 
     [SerializeField] private PlayerWeaponManager _playerWeaponController;
@@ -20,9 +19,9 @@ public class PlayerManager : MonoBehaviour
 
     private Vector2 _moveVector;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _playerAnimations = GetComponent<PlayerAnimations>();
+        base.Awake();
         _playerMovements = GetComponent<PlayerMovements>();
         _playersInput = GetComponent<PlayerInput>();
         _sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -82,7 +81,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (_rollAction.triggered) {
             // _playerAnimations.Roll();
-            _playerAnimations.Attack();
+            this._animationController.Attack();
             // Roll();
         }
     }

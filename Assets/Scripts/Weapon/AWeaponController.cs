@@ -9,21 +9,18 @@ public abstract class AWeaponController : MonoBehaviour
     public int _ammos;
     [SerializeField] private float _fireRate;
     [SerializeField] private float _reloadTime;
-    [SerializeField] private float _bulletSpeed;
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _firePoints;
-    [SerializeField] private Transform _centerPoint;
-    [SerializeField] private float _bulletDamage;
+    [SerializeField] protected float _bulletSpeed;
+    [SerializeField] protected float _bulletDamage;
 
-    [SerializeField] private ObjectPooling _bulletsPool;
+    [SerializeField] protected ObjectPooling _bulletsPool;
     private List<GameObject> _activeBullet = new List<GameObject>();
 
-    private float _rotationAngle;
+    protected float _rotationAngle;
     // private bool _cursorOver = false;
     private bool _canFire = true;
-    private Coroutine _resetFireRateCoroutine = null;
-    private Coroutine _reloadCoroutine = null;
     private SpriteRenderer _sprite;
     private List<SpriteRenderer> _handsSprites = new List<SpriteRenderer>();
     [HideInInspector] public float _loadedAmmos = 0;
@@ -91,25 +88,13 @@ public abstract class AWeaponController : MonoBehaviour
         if (!this._canFire)
             return false;
         if (this._loadedAmmos <= 0) {
-            this._reloadCoroutine = StartCoroutine(ReloadWeapon());
+            StartCoroutine(ReloadWeapon());
             return false;
         }
         return true;
     }
 
-    private void InitShotgunBullet()
-    {
-
-        GameObject bullet = this._bulletsPool.Get();
-        GameObject bullet2 = this._bulletsPool.Get();
-        GameObject bullet3 = this._bulletsPool.Get();
-
-        bullet.GetComponent<BulletController>().Active(this._rotationAngle + 10, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
-        bullet2.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
-        bullet3.GetComponent<BulletController>().Active(this._rotationAngle - 10, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
-    }
-
-    private void InitWeaponBullet()
+    protected virtual void InitWeaponBullets()
     {
         GameObject bullet = this._bulletsPool.Get();
         bullet.GetComponent<BulletController>().Active(this._rotationAngle, this._bulletSpeed, this._bulletDamage, this._bulletsPool);
@@ -122,14 +107,10 @@ public abstract class AWeaponController : MonoBehaviour
         }
         this._canFire = false;
         GameEventsManager.playerFired?.Invoke();
-        this._resetFireRateCoroutine = StartCoroutine(ResetFireRate());
         this._loadedAmmos -= 1;
+        StartCoroutine(ResetFireRate());
         StartCoroutine(ShowMuzzle());
-        if (id == WeaponsEnum.Shotgun) {
-            InitShotgunBullet();
-        } else {
-            InitWeaponBullet();
-        }
+        InitWeaponBullets();
     }
 
     private IEnumerator ShowMuzzle()

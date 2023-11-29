@@ -48,7 +48,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player")) return;
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet")) return;
         if (other.gameObject.CompareTag("Enemy")) {
             if (other.gameObject.TryGetComponent(out EnemyHealthManager enemyManager)) {
                 enemyManager.TakeDamage(this.damage);
